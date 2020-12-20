@@ -7,14 +7,13 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
   def show
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    @tags = Tag.all
   end
 
   # GET /posts/1/edit
@@ -24,17 +23,24 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @post }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+    #byebug 
+    @post = Post.create(post_params)
+    #@post.tags << Tag.find_or_create_by(name: post_params[:tags])
+    #post_params[:tags].each{|tag_id| PostTag.create(post_id: @post.id, tag_id: tag_id)}
+    #@post = Post.create(post_params)
+    redirect_to @post 
+    
+    #post_params[:tags].each{|tag_id| PostTag.create(post_id: @post.id, tag_id: tag_id)}
+    #redirect_to tags_path
+    # respond_to do |format|
+    #   if @post.save
+    #     format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #     format.json { render action: 'show', status: :created, location: @post }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @post.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /posts/1
@@ -69,6 +75,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:name)
+      params.require(:post).permit(:name, :content, tags_ids:[])
     end
 end

@@ -1,0 +1,7 @@
+
+<h1><%=@tag.name%></h1>
+<%= link_to 'New Post', new_post_path %>
+
+<% @tags.posts.each do |post|%>
+    <p><%=post.name%></p>
+<% end %>

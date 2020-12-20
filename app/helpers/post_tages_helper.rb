@@ -1,0 +1,2 @@
+module PostTagesHelper
+end

@@ -1,0 +1,11 @@
+<h1>Tags</h1>
+
+<table>
+  <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <td><%= link_to tag.name, tag %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
